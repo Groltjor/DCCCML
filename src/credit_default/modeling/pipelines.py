@@ -4,7 +4,7 @@ from sklearn.compose import ColumnTransformer
 from sklearn.impute import SimpleImputer
 from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import OneHotEncoder, StandardScaler
+from sklearn.preprocessing import OneHotEncoder, StandardScaler, PowerTransformer
 from sklearn.ensemble import RandomForestClassifier
 
 from sklearn.preprocessing import FunctionTransformer
@@ -41,38 +41,6 @@ def build_preprocessor(
 
     return preprocessor
 
-def build_preprocessor_np1log(
-    pos_num_cols: list[str],
-    neg_num_cols: list[str],
-    categorical_cols: list[str],
-) -> ColumnTransformer:
-
-    log1p_transformer = Pipeline(steps=[
-        ('log1p', FunctionTransformer(np.log1p, feature_names_out='one-to-one')),
-        ('scaler', StandardScaler())
-    ])
-
-    numeric_pipeline = Pipeline(steps=[
-        ("imputer", SimpleImputer(strategy="median")),
-        ("scaler", StandardScaler()),
-    ])
-
-    categorical_pipeline = Pipeline(steps=[
-        ("imputer", SimpleImputer(strategy="most_frequent")),
-        ("encoder", OneHotEncoder(handle_unknown="ignore")),
-    ])
-
-    preprocessor = ColumnTransformer(
-        transformers=[
-            ('log1p_num', log1p_transformer, pos_num_cols),
-            ('num', numeric_pipeline, neg_num_cols),
-            ('cat', categorical_pipeline, categorical_cols),
-        ],
-        remainder="drop",
-    )
-
-    return preprocessor
-
 
 def build_logistic_regression_pipeline(
     numeric_cols: list[str],
@@ -99,14 +67,55 @@ def build_logistic_regression_pipeline(
 
     return pipeline
 
+def build_preprocessor_np1log(
+    cols_to_log1p: list[str],
+    cols_to_numeric: list[str],
+    cols_to_yeo: list[str],
+    categorical_cols: list[str],
+) -> ColumnTransformer:
+
+    log1p_transformer = Pipeline(steps=[
+        ('log1p', FunctionTransformer(np.log1p, feature_names_out='one-to-one')),
+        ('scaler', StandardScaler())
+    ])
+
+    yeo_transformer = Pipeline(steps = [
+        ('yeo', PowerTransformer(method = 'yeo-johnson')),
+        ('scaler', StandardScaler())
+    ])
+
+    numeric_pipeline = Pipeline(steps=[
+        ("imputer", SimpleImputer(strategy="median")),
+        ("scaler", StandardScaler()),
+    ])
+
+    categorical_pipeline = Pipeline(steps=[
+        ("imputer", SimpleImputer(strategy="most_frequent")),
+        ("encoder", OneHotEncoder(handle_unknown="ignore")),
+    ])
+
+    preprocessor = ColumnTransformer(
+        transformers=[
+            ('log1p_num', log1p_transformer, cols_to_log1p),
+            ('yeo', yeo_transformer, cols_to_yeo),
+            ('num', numeric_pipeline, cols_to_numeric),
+            ('cat', categorical_pipeline, categorical_cols),
+        ],
+        remainder="drop",
+    )
+
+    return preprocessor
+
 def build_logistic_regression_pipeline_np1log(
-    pos_num_cols: list[str],
-    neg_num_cols: list[str],
+    cols_to_log1p: list[str],
+    cols_to_numeric: list[str],
+    cols_to_yeo: list[str],
     categorical_cols: list[str],
 ) -> Pipeline:
     preprocessor = build_preprocessor_np1log(
-        pos_num_cols = pos_num_cols,
-        neg_num_cols = neg_num_cols,
+        cols_to_log1p= cols_to_log1p,
+        cols_to_numeric= cols_to_numeric,
+        cols_to_yeo= cols_to_yeo,
         categorical_cols = categorical_cols,
     )
 

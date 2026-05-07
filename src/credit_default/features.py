@@ -131,13 +131,39 @@ def check_for_vif(df: pd.DataFrame, numeric_cols: list[str]):
     ]
 
     vif_data = (
-        vif_data[vif_data['variable'] != 'constant']
+        vif_data[vif_data['variable'] != 'const']
         .sort_values('VIF', ascending = False)
     )
 
     return vif_data
 
 
+def split_pos_neg_features(df_preliminar: pd.DataFrame, numeric_cols: list[str]) -> tuple[list[str], list[str]]:
+    """
+    Receives a dataframe with final features to evaluare
+    and checks on the numeric ones those whom are negative to prevent
+    problems with np.log1p
+    """
 
-    
+    df_work = df_preliminar[numeric_cols].copy()
 
+    has_negative = df_work.lt(0).any()
+
+    negative_cols = has_negative[has_negative].index.tolist()
+    positive_cols = has_negative[~has_negative].index.tolist()
+
+    return negative_cols, positive_cols
+
+def skew_checker(df_preliminar: pd.DataFrame, candidates: list[str]) -> tuple[list[str], list[str]]:
+    """
+    Revisa que las columnas esten o no con skew bajo 2+ se marcan skewd, 
+    nos retornara para auotmatizar la selección de skewed
+    """
+    df_work = df_preliminar[candidates].copy()
+
+    is_skew = df_work.skew().gt(2)
+
+    skewed_yes = is_skew[is_skew].index.tolist()
+    skewed_no = is_skew[~is_skew].index.tolist()
+
+    return skewed_no, skewed_yes
