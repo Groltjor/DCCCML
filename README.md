@@ -2,7 +2,7 @@
 
 Proyecto de práctica de machine learning para predecir default de clientes de tarjeta de crédito usando el dataset `default_of_credit_card_clients`.
 
-La idea de esta versión inicial es ordenar un notebook exploratorio en una estructura más limpia para GitHub, separando carga de datos, limpieza, features, pipelines de modelado y evaluación.
+La idea de esta versión inicial es ordenar un notebook exploratorio en una estructura limpia para GitHub, separando carga de datos, limpieza, features, pipelines de modelado y evaluación.
 
 ## Objetivo
 
@@ -45,29 +45,16 @@ DefaultUCICredit/
 ## Modelo Actual
 
 La versión actual entrena un modelo XGBoost usando un pipeline de `scikit-learn`.
+También esta versión lleva al usuario hasta el entrenamiento de pipelines y su almacenamiento en joblib.
+Actualmente trabajando en la evaluación de modelos.
 
-El threshold final usado por ahora es:
+## La mejor forma de usar el proyecto.
 
-```text
-0.30
-```
-
-Este threshold se eligió como punto inicial para balancear la detección de defaults contra el costo de falsos positivos.
+En este momento, podrás explorar el pipeline de entrenamiento hasta almacenamiento. Esto se encuentra /Notebooks.
 
 ## Cómo correr el entrenamiento
 
-Desde la carpeta `src`:
-
-```bash
-python3.11 -m credit_default.modeling.train
-```
-
-Esto genera:
-
-- Modelo entrenado en `models/`
-- Threshold elegido en `models/threshold.json`
-- Métricas finales en `reports/tables/final_model_metrics.json`
-- Reporte de thresholds en `reports/tables/threshold_report.csv`
+Esta bajo implementación, de momento almacena un XGBoost.
 
 ## Estado del Proyecto
 
@@ -76,10 +63,7 @@ Esta es una versión 0 del proyecto. Todavía está en proceso de limpieza y mej
 Pendientes posibles:
 
 - Documentar mejor las decisiones del notebook original.
-- Migrar más feature engineering desde el notebook exploratorio.
-- Agregar un README más completo con resultados y conclusiones.
-- Limpiar dependencias no usadas en `requirements.txt`.
-- Agregar `.gitignore`.
+- Limpiar dependencias no usadas en `requirements.txt`. xd cambiar nombre
 - Convertir el proyecto en paquete instalable para evitar depender de rutas locales.
 
 ## Nota
