@@ -4,6 +4,8 @@ from dataclasses import dataclass
 
 import pandas as pd
 import numpy as np
+import os
+import json
 
 from statsmodels.stats.outliers_influence import variance_inflation_factor
 from statsmodels.tools.tools import add_constant
@@ -50,7 +52,7 @@ def get_feature_groups() -> FeatureGroups:
         payment_status_cols=payment_status_cols,
     )
 
-def add_credit_behaviour_features(df: pd.DataFrame) -> pd.DataFrame:
+def add_credit_behaviour_features(df: pd.DataFrame) -> tuple[pd.DataFrame, list[str]]:
 
     bill_cols = [f'BILL_AMT{i}' for i in range(1, 7)]
     pay_amount_cols = [f'PAY_AMT{i}' for i in range(1, 7)]
@@ -167,3 +169,71 @@ def skew_checker(df_preliminar: pd.DataFrame, candidates: list[str]) -> tuple[li
     skewed_no = is_skew[~is_skew].index.tolist()
 
     return skewed_no, skewed_yes
+
+def save_checkpoint(
+    componentes_test : list[pd.DataFrame],
+    columnas_log1p : list[str],
+    columnas_numericas : list[str],
+    columnas_categoricas: list[str],
+    columnas_yeo : list[str],
+    nombre_checkpoint : str,
+    ruta_de_proyecto : Path
+) -> bool:
+    """
+    Esta es una función de alamcenamiento donde predefinidamente se alamcena dentro de los Checkpoins
+    De momento no soporta validation
+    """
+    saving_df_route = ruta_de_proyecto / 'checkpoints' /nombre_checkpoint
+    print('Creando ruta en ', saving_df_route)
+    os.makedirs(saving_df_route, exist_ok = True)
+    print('Ruta Creada')
+
+    lista_almacenamiento = ['X_train', 'X_test', 'y_train', 'y_test']
+
+    for i in range(0, len(lista_almacenamiento)):
+
+        df = componentes_test[i]
+        print('Almacenando ', lista_almacenamiento[i])
+        parquet_name = os.path.join(saving_df_route, f'{lista_almacenamiento[i]}.parquet')
+
+        if isinstance(df, pd.Series):
+            df = df.to_frame(name = TARGET)
+        df.to_parquet(parquet_name)
+
+    save_route_file = os.path.join(saving_df_route, 'metadata.json')
+    print('Almacenando el archivo en: ', save_route_file)
+
+    contenido = {
+        'nombre_df' : nombre_checkpoint,
+        'columnas_log1p' : columnas_log1p,
+        'columnas_numericas' : columnas_numericas,
+        'columnas_categoricas' : columnas_categoricas,
+        'columnas_yeo' : columnas_yeo,
+    }
+
+    with open(save_route_file, 'w') as file:
+        json.dump(contenido, file, indent = 2)
+
+    return
+
+def load_checkpoint(checkpoint_PATH : Path) -> tuple( list[pd.DataFrame], json ):
+
+    lista_almacenamiento = ['X_train', 'X_test', 'y_train', 'y_test']
+    json_route = os.path.join(checkpoint_PATH, 'metadata.json')
+    arreglo_frames = []
+    
+    with open(json_route, 'r') as jsonfile:
+        json_loaded = json.load(jsonfile)
+    
+    for parquet in lista_almacenamiento:
+        parquet_route = os.path.join(checkpoint_PATH, f'{parquet}.parquet')
+        print(f'Cargando el archivo {parquet_route}')
+        parquet_df = pd.read_parquet(parquet_route)
+
+        if parquet in ['y_train', 'y_test']:
+            print(f'Aplanando {parquet}')
+            parquet_df = parquet_df.squeeze()
+
+        arreglo_frames.append(parquet_df)
+
+    return arreglo_frames, json_loaded
