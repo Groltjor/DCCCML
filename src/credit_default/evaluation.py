@@ -38,20 +38,18 @@ def score_modelo_lineal(y_true : list[float], y_pred : list[float])-> pd.DataFra
     return
 
 
-def score_modelo_no_lineal(y_true : list[float], y_pred: list[float]) -> tuple[Any]:
+def score_modelo_no_lineal(y_true : list[float], y_pred: list[float], y_scores: list[float]) -> tuple[Any]:
     """
     Esta es una función para evaluar el modelo de tipo no lineal
     """
 
-    print('Entrando a Predecir')
-
     CM = confusion_matrix(y_true, y_pred)
     F1 = f1_score(y_true, y_pred)
     ACCURACY = accuracy_score(y_true, y_pred)
-    ROCAUC = roc_auc_score(y_true, y_pred)
+    ROCAUC = roc_auc_score(y_true, y_scores) 
     RECALL = recall_score(y_true, y_pred)
-    PRECISION = precision_score(y_true, y_pred)
-    PR_AUC = average_precision_score(y_true, y_pred)
+    PRECISION = precision_score(y_true, y_pred, zero_division= 0)
+    PR_AUC = average_precision_score(y_true, y_scores)
 
     return CM, F1, ACCURACY, ROCAUC, RECALL, PRECISION, PR_AUC
 
@@ -94,4 +92,5 @@ def plot_precision_recall_curve(y_true, y_score, axes):
     display_prec_recall.plot(ax = axes)
 
     return display_prec_recall
+
 
