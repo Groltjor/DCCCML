@@ -43,3 +43,7 @@ En este momento, podrás explorar el pipeline de entrenamiento hasta almacenamie
 ## Estado del Proyecto
 
 Esta es una versión 0 del proyecto. Todavía está en proceso de limpieza y mejora.
+
+## Not Data Analytics Project
+
+Este proyecto no esta pensado para sacar insights desde la data de banco, como podrían ser segmentos de clientes por nivel de pago o agrupaciones por catacteristicas, este proyecto esta centrado en la entrega de modelos de ML que podrán ser integrados en endpoints sostenidos con FASTAPI.
