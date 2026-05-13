@@ -2,21 +2,9 @@
 
 Proyecto de práctica de machine learning para predecir default de clientes de tarjeta de crédito usando el dataset `default_of_credit_card_clients`.
 
-La idea de esta versión inicial es ordenar un notebook exploratorio en una estructura limpia para GitHub, separando carga de datos, limpieza, features, pipelines de modelado y evaluación.
+Este repo busca generar Notebooks documentando el proceso de EDA, construcción de un modelo base dummy, moverse hacia Feature Engineering, construcción de pipelines de modelado, dividir etrenamiento y evaluación.
 
-## Objetivo
-
-Construir un modelo de clasificación binaria para estimar si un cliente caerá en default el siguiente mes.
-
-El foco principal no es solo maximizar accuracy, sino revisar métricas más útiles para un problema de riesgo crediticio, especialmente:
-
-- Recall de la clase default
-- Precision
-- F1 score
-- ROC AUC
-- PR AUC
-- Matriz de confusión
-- Evaluación por threshold
+El objetivo es mantener un proyecto de ML documentado, legible y reproducible para el equipo evitando una entrega única en un notebook.
 
 ## Estructura
 
@@ -42,30 +30,16 @@ DefaultUCICredit/
 └── requirements.txt
 ```
 
-## Modelo Actual
+## /src/credit_default/modeling/train.py
 
-La versión actual entrena un modelo XGBoost usando un pipeline de `scikit-learn`.
-También esta versión lleva al usuario hasta el entrenamiento de pipelines y su almacenamiento en joblib.
+La versión actual de /modeling/train entrena un modelo XGBoost usando un pipeline de `scikit-learn` y entregando en joblib, esto esta bajo revisión, recomiendo realizar entrenamientos desde el Notebook 03 o integrando nuevos pipelines de entrenamiento en 'src/credit_default/evaluation.py'. Es una vieja implementación a si que de momento es incompatible con los Notebooks cuyas son las versiones finales.
+
 Actualmente trabajando en la evaluación de modelos.
 
 ## La mejor forma de usar el proyecto.
 
 En este momento, podrás explorar el pipeline de entrenamiento hasta almacenamiento. Esto se encuentra /Notebooks.
 
-## Cómo correr el entrenamiento
-
-Esta bajo implementación, de momento almacena un XGBoost.
-
 ## Estado del Proyecto
 
 Esta es una versión 0 del proyecto. Todavía está en proceso de limpieza y mejora.
-
-Pendientes posibles:
-
-- Documentar mejor las decisiones del notebook original.
-- Limpiar dependencias no usadas en `requirements.txt`. xd cambiar nombre
-- Convertir el proyecto en paquete instalable para evitar depender de rutas locales.
-
-## Nota
-
-Este proyecto es principalmente de práctica y aprendizaje. Las decisiones de negocio, costos de errores y thresholds son ilustrativos.
