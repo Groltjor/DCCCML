@@ -39,3 +39,32 @@ def get_models_and_routes()-> dict:
     
 
     return (model_list, nombre_modelos)
+
+def load_checkpoint(checkpoint_PATH : Path) -> tuple[list[pd.DataFrame | pd.Series], dict[str, Any] ]:
+    """
+    Retorna un arreglo de frames y un json que contiene metadata, No tranforma
+    parquets.
+    """
+    ## Nota, debemos cambiarla hacia utils
+
+    lista_almacenamiento = ['X_train', 'X_test', 'y_train', 'y_test']
+    json_route = os.path.join(checkpoint_PATH, 'metadata.json')
+    arreglo_frames = []
+    
+    with open(json_route, 'r') as jsonfile:
+        json_loaded = json.load(jsonfile)
+    
+    for parquet in lista_almacenamiento:
+        parquet_route = os.path.join(checkpoint_PATH, f'{parquet}.parquet')
+        print(f'Cargando el archivo {parquet_route}')
+        parquet_df = pd.read_parquet(parquet_route)
+
+        if parquet in ['y_train', 'y_test']:
+            print(f'Aplanando {parquet}')
+            parquet_df = parquet_df.squeeze()
+
+        arreglo_frames.append(parquet_df)
+
+    return arreglo_frames, json_loaded
+
+    

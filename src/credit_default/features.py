@@ -217,6 +217,11 @@ def save_checkpoint(
     return
 
 def load_checkpoint(checkpoint_PATH : Path) -> tuple( list[pd.DataFrame], json ):
+    """
+    Retorna un arreglo de frames y un json que contiene metadata, No tranforma
+    parquets.
+    """
+    ## Nota, debemos cambiarla hacia utils
 
     lista_almacenamiento = ['X_train', 'X_test', 'y_train', 'y_test']
     json_route = os.path.join(checkpoint_PATH, 'metadata.json')
