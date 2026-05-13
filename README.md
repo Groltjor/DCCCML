@@ -4,7 +4,7 @@ Proyecto de práctica de machine learning para predecir default de clientes de t
 
 Este repo busca generar Notebooks documentando el proceso de EDA, construcción de un modelo base dummy, moverse hacia Feature Engineering, construcción de pipelines de modelado, dividir etrenamiento y evaluación.
 
-El objetivo es mantener un proyecto de ML documentado, legible y reproducible para el equipo evitando una entrega única en un notebook.
+El objetivo es mantener un proyecto de ML documentado, legible y reproducible para el equipo evitando una entrega única en un notebook. También valorar medición sobre caso de negocio hipotético frente a solo el reporteo de métricas propias del ML.
 
 ## Estructura
 
