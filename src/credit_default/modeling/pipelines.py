@@ -188,3 +188,29 @@ def build_xgboost_pipeline(
     ])
 
     return pipeline
+
+def build_logistic_regression_pipeline_np1log_optimized(
+    cols_to_log1p: list[str],
+    cols_to_numeric: list[str],
+    cols_to_yeo: list[str],
+    categorical_cols: list[str],
+    C_optimized: float
+) -> Pipeline:
+    preprocessor = build_preprocessor_np1log(
+        cols_to_log1p= cols_to_log1p,
+        cols_to_numeric= cols_to_numeric,
+        cols_to_yeo= cols_to_yeo,
+        categorical_cols = categorical_cols,
+    )
+
+    model = LogisticRegression(
+        class_weight="balanced",
+        C = C_optimized,
+    )
+
+    pipeline = Pipeline(steps =[
+        ('preprocessor', preprocessor),
+        ('model', model)
+    ])
+
+    return pipeline

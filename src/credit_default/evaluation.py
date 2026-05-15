@@ -93,4 +93,18 @@ def plot_precision_recall_curve(y_true, y_score, axes):
 
     return display_prec_recall
 
+def frame_data(F1, ACCURACY, PRECISION, ROCAUC, RECALL, PR_AUC):
+
+    data = {
+        'F1' : F1,
+        'ACCURACY' : ACCURACY,
+        'PRECISION' : PRECISION,
+        'ROCAUC' : ROCAUC,
+        'RECALL' : RECALL,
+        'PR_AUC' : PR_AUC,
+    }
+
+    frame = pd.DataFrame(data, index = [0])
+    
+    return frame
 

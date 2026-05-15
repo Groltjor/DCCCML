@@ -1,0 +1,26 @@
+{
+  "default_threshold_metrics": {
+    "F1": 0.531986531986532,
+    "ACCURACY": 0.7682560853617872,
+    "PRECISION": 0.4808277541083384,
+    "ROCAUC": 0.7680698152447633,
+    "RECALL": 0.5953278070836473,
+    "PR_AUC": 0.5408071545337299
+  },
+  "best_profit_threshold": {
+    "THRESHOLD": 0.3,
+    "F1": 0.4291907514450867,
+    "ACCURACY": 0.4731577192397466,
+    "PRECISION": 0.28225231646471843,
+    "ROCAUC": 0.7680698152447633,
+    "RECALL": 0.8952524491333835,
+    "PR_AUC": 0.5408071545337299,
+    "tn": 1650,
+    "fp": 3021,
+    "fn": 139,
+    "tp": 1188,
+    "profit": 3179000
+  },
+  "model": "build_logistic_regression_pipeline_np1log_optimized",
+  "C_optimized": 0.1
+}

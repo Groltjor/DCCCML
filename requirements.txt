@@ -8,3 +8,4 @@ seaborn
 geopandas
 xlrd
 statsmodels
+shap

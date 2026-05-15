@@ -3,8 +3,8 @@ from __future__ import annotations
 import joblib
 import os
 from pathlib import Path
-
-PROJECT_ROOT = Path.cwd().parent
+import json
+import pandas as pd
 
 
 def save_model_joblib(ruta_almacenado: Path, modelo : any, model_name : str) -> tuple(str, list[any]):
@@ -18,7 +18,9 @@ def save_model_joblib(ruta_almacenado: Path, modelo : any, model_name : str) -> 
 
     joblib.dump(modelo, file_name)
 
-def get_models_and_routes()-> dict:
+    return
+
+def get_models_and_routes(PROJECT_ROOT : Path | str )-> dict:
 
     print(f'Preparando modelos ...', PROJECT_ROOT)
 
@@ -28,16 +30,17 @@ def get_models_and_routes()-> dict:
 
     for ruta in models_route.glob('**/*/*.joblib'):
 
-        print(f'Leyendo la ruta {ruta}')
+        print(f'Leyendo la ruta {ruta} \n')
         model = joblib.load(ruta)
 
         model_list.append(model)
         nombre_mod = str(ruta).split('/')[-1:][0]
         nombre_modelos.append(nombre_mod)
 
-        print(f'Modelo cargado {nombre_mod}.')
+        print(f'Modelo cargado {nombre_mod}. \n')
     
 
+    print( '-'*5, 'Todos los modelos han sido cargados', '-'*5)
     return (model_list, nombre_modelos)
 
 def load_checkpoint(checkpoint_PATH : Path) -> tuple[list[pd.DataFrame | pd.Series], dict[str, Any] ]:
@@ -64,6 +67,8 @@ def load_checkpoint(checkpoint_PATH : Path) -> tuple[list[pd.DataFrame | pd.Seri
             parquet_df = parquet_df.squeeze()
 
         arreglo_frames.append(parquet_df)
+    
+    print('-'*5, 'Todos los checkpoints cargados', '-'*5)
 
     return arreglo_frames, json_loaded
 
