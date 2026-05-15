@@ -2,6 +2,8 @@
 
 Proyecto académico de machine learning sobre el dataset `default_of_credit_card_clients.xls`, enfocado en predecir casos de default/no default en clientes de tarjeta de crédito.
 
+Fuente del repo `https://archive.ics.uci.edu/dataset/350/default+of+credit+card+clients`.
+
 La meta principal no es presentar un notebook con una secuencia larga de pasos, ni optimizar únicamente métricas clásicas como `F1`, `precision` o `precision@80`. El objetivo de este repositorio es mostrar cómo ordenar un proyecto de ML para que el proceso sea reproducible, legible y entregable para un equipo.
 
 ## Objetivo
@@ -80,13 +82,13 @@ Esta matriz no representa una política real de negocio. Sirve para mostrar que 
 
 Resumen de los mejores thresholds bajo la matriz de utilidad académica:
 
-| Threshold | F1 | Accuracy | Precision | Recall | ROC AUC | PR AUC | TN | FP | FN | TP | Profit |
-|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| 0.30 | 0.429 | 0.473 | 0.282 | 0.895 | 0.768 | 0.541 | 1650 | 3021 | 139 | 1188 | 3179000 |
-| 0.35 | 0.463 | 0.587 | 0.325 | 0.804 | 0.768 | 0.541 | 2456 | 2215 | 260 | 1067 | 2976000 |
-| 0.25 | 0.398 | 0.364 | 0.252 | 0.953 | 0.768 | 0.541 | 917 | 3754 | 63 | 1264 | 2853000 |
-| 0.40 | 0.500 | 0.677 | 0.380 | 0.729 | 0.768 | 0.541 | 3095 | 1576 | 360 | 967 | 2754000 |
-| 0.20 | 0.375 | 0.276 | 0.232 | 0.983 | 0.768 | 0.541 | 351 | 4320 | 23 | 1304 | 2321000 |
+| Threshold |    F1 | Accuracy | Precision | Recall | ROC AUC | PR AUC |   TN |   FP |  FN |   TP |  Profit |
+| --------: | ----: | -------: | --------: | -----: | ------: | -----: | ---: | ---: | --: | ---: | ------: |
+|      0.30 | 0.429 |    0.473 |     0.282 |  0.895 |   0.768 |  0.541 | 1650 | 3021 | 139 | 1188 | 3179000 |
+|      0.35 | 0.463 |    0.587 |     0.325 |  0.804 |   0.768 |  0.541 | 2456 | 2215 | 260 | 1067 | 2976000 |
+|      0.25 | 0.398 |    0.364 |     0.252 |  0.953 |   0.768 |  0.541 |  917 | 3754 |  63 | 1264 | 2853000 |
+|      0.40 | 0.500 |    0.677 |     0.380 |  0.729 |   0.768 |  0.541 | 3095 | 1576 | 360 |  967 | 2754000 |
+|      0.20 | 0.375 |    0.276 |     0.232 |  0.983 |   0.768 |  0.541 |  351 | 4320 |  23 | 1304 | 2321000 |
 
 La tabla completa se genera en `models_one_click/threshold_test_results_df.csv`.
 
