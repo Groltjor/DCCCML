@@ -80,7 +80,7 @@ profit = tp * beneficio_tp
 
 Esta matriz no representa una política real de negocio. Sirve para mostrar que las decisiones del modelo deberían discutirse en términos de impacto, no solo en términos de métricas técnicas.
 
-Resumen de los mejores thresholds bajo la matriz de utilidad académica:
+Resultados completos de thresholds bajo la matriz de utilidad académica:
 
 | Threshold |    F1 | Accuracy | Precision | Recall | ROC AUC | PR AUC |   TN |   FP |  FN |   TP |  Profit |
 | --------: | ----: | -------: | --------: | -----: | ------: | -----: | ---: | ---: | --: | ---: | ------: |
@@ -89,8 +89,19 @@ Resumen de los mejores thresholds bajo la matriz de utilidad académica:
 |      0.25 | 0.398 |    0.364 |     0.252 |  0.953 |   0.768 |  0.541 |  917 | 3754 |  63 | 1264 | 2853000 |
 |      0.40 | 0.500 |    0.677 |     0.380 |  0.729 |   0.768 |  0.541 | 3095 | 1576 | 360 |  967 | 2754000 |
 |      0.20 | 0.375 |    0.276 |     0.232 |  0.983 |   0.768 |  0.541 |  351 | 4320 |  23 | 1304 | 2321000 |
+|      0.45 | 0.521 |    0.736 |     0.435 |  0.650 |   0.768 |  0.541 | 3551 | 1120 | 465 |  862 | 2091000 |
+|      0.15 | 0.364 |    0.230 |     0.223 |  0.995 |   0.768 |  0.541 |   61 | 4610 |   6 | 1321 | 1996000 |
+|      0.10 | 0.362 |    0.222 |     0.221 |  0.999 |   0.768 |  0.541 |    8 | 4663 |   1 | 1326 | 1965000 |
+|      0.50 | 0.532 |    0.768 |     0.481 |  0.595 |   0.768 |  0.541 | 3818 |  853 | 537 |  790 | 1545000 |
+|      0.55 | 0.527 |    0.785 |     0.514 |  0.541 |   0.768 |  0.541 | 3992 |  679 | 609 |  718 |  813000 |
+|      0.60 | 0.518 |    0.797 |     0.546 |  0.492 |   0.768 |  0.541 | 4128 |  543 | 674 |  653 |  110000 |
+|      0.65 | 0.515 |    0.806 |     0.578 |  0.464 |   0.768 |  0.541 | 4221 |  450 | 711 |  616 | -259000 |
+|      0.70 | 0.493 |    0.810 |     0.604 |  0.416 |   0.768 |  0.541 | 4309 |  362 | 775 |  552 | -1043000 |
+|      0.75 | 0.479 |    0.817 |     0.646 |  0.381 |   0.768 |  0.541 | 4394 |  277 | 822 |  505 | -1578000 |
+|      0.80 | 0.445 |    0.817 |     0.675 |  0.332 |   0.768 |  0.541 | 4459 |  212 | 887 |  440 | -2423000 |
+|      0.85 | 0.370 |    0.809 |     0.684 |  0.254 |   0.768 |  0.541 | 4515 |  156 | 990 |  337 | -3856000 |
 
-La tabla completa se genera en `models_one_click/threshold_test_results_df.csv`.
+La misma tabla se genera como CSV en `models_one_click/threshold_test_results_df.csv`.
 
 ## Interpretabilidad Con SHAP
 
